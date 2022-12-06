@@ -34,12 +34,12 @@ else {
 }
 //----------------------END "DO NOT MODIFY" SECTION-------------------------------
 
-// Set the JVM target to 11, as described in https://stackoverflow.com/a/44297713/13220684
-// Ghidra requires 11 and the buildExtension.gradle sets this for Java
+// Set the JVM target to 17, as described in https://stackoverflow.com/a/44297713/13220684
+// Ghidra requires 17 and the buildExtension.gradle sets this for Java
 // IntelliJ will complain about the discrepancy between the Java and the Kotlin target otherwise
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 	kotlinOptions {
-		jvmTarget = "11"
+		jvmTarget = "17"
 	}
 }
 
@@ -47,7 +47,14 @@ dependencies {
 	// If you are using the Ghidra Jupyter Plugin for Kotlin, add the following line to declare it as a dependency
 	// This allows using the extension methods and makes sure that the required Kotlin libraries are present and not
 	// conflicting
-	//	api fileTree(dir: ghidraInstallDir + '/Ghidra/Extensions/GhidraJupyterKotlin/', include: "**/*.jar")
+		api fileTree(dir: ghidraInstallDir + '/Ghidra/Extensions/GhidraJupyterKotlin/', include: "**/*.jar")
+
+	// OpenAI API
+	implementation "com.aallam.openai:openai-client:2.0.0"
+//	implementation platform('com.aallam.openai:openai-client-bom:2.0.0')
+//	implementation 'io.ktor:ktor-client:1.5.4'
+//	implementation 'io.ktor:ktor-client-jvm:1.5.4'
+	implementation 'io.ktor:ktor-client-java:2.1.0'
 }
 
 // Make it explicit that the compilation depends on some libraries in the `lib` folder,
